@@ -1,4 +1,6 @@
 import streamlit as st
+import plotly.graph_objs as go
+import numpy as np
 
 # Title of the app
 st.title("Welcome to My Streamlit App")
@@ -10,20 +12,22 @@ user_input = st.text_input("Enter your name:")
 if user_input:
     st.write(f"Hello, {user_input}! Welcome to the app.")
 
-# Example of a simple plot
-import matplotlib.pyplot as plt
-import numpy as np
-
+# Example of a simple plot using Plotly
 x = np.linspace(0, 10, 100)
 y = np.sin(x)
 
-# Create a plot
-plt.figure()
-plt.plot(x, y, label='Sine Wave')
-plt.title('Example Plot')
-plt.xlabel('X-axis')
-plt.ylabel('Y-axis')
-plt.legend()
+# Create a Plotly figure
+fig = go.Figure()
+
+# Add a trace (line) to the figure
+fig.add_trace(go.Scatter(x=x, y=y, mode='lines', name='Sine Wave'))
+
+# Update layout of the figure
+fig.update_layout(
+    title='Example Plot',
+    xaxis_title='X-axis',
+    yaxis_title='Y-axis'
+)
 
 # Show plot in Streamlit
-st.pyplot(plt)
+st.plotly_chart(fig)
